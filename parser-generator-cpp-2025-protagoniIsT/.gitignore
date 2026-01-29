@@ -1,0 +1,12 @@
+# Directories.
+build/
+.cache/
+.vscode/
+venv/
+testdata/
+
+# Files
+*.out
+*.exe
+*.obj
+grammar.in

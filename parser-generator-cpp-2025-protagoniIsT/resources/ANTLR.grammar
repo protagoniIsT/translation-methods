@@ -1,0 +1,133 @@
+program
+    : programTail END
+    ;
+
+programTail
+    : declaration programTail
+    |
+    ;
+
+declaration
+    : NAME declarationTail
+    ;
+
+declarationTail
+    : '::' typeList
+    | funDefTail
+    ;
+
+funTypeDecl
+    : NAME '::' typeList
+    ;
+
+funDef
+    : NAME funDefTail
+    ;
+
+funDefTail
+    : argList funBody
+    | funBody
+    ;
+
+funBody
+    : guardClause+
+    | '=' expr
+    ;
+
+guardClause
+    : '|' expr '=' expr
+    ;
+
+typeList
+    : TYPE typeListTail
+    ;
+
+typeListTail
+    : '->' typeList
+    | 
+    ;
+
+expr
+    : boolExpr
+    ;
+
+boolExpr
+    : additiveExpr boolExprTail
+    ;
+
+boolExprTail
+    : relOp additiveExpr boolExprTail
+    |
+    ;
+
+relOp
+    : '==' | '!=' | '<' | '>' | '<=' | '>='
+    ;
+
+additiveExpr
+    : mulExpr additiveExprTail
+    ;
+
+additiveExprTail
+    : '+' mulExpr additiveExprTail
+    | '-' mulExpr additiveExprTail
+    |
+    ;
+
+mulExpr
+    : atom mulExprTail
+    ;
+
+mulExprTail
+    : '*' atom mulExprTail
+    | '/' atom mulExprTail
+    |
+    ;
+
+atom
+    : NAME atomTail
+    | INT
+    | '-' expr
+    | '(' expr ')'
+    | ifExpr
+    ;
+
+atomTail
+    : '(' atomArgs ')'
+    ;
+
+atomArgs
+    : exprList
+    |
+    ;
+
+ifExpr
+    : 'if' expr 'then' expr 'else' expr
+    ;
+
+exprList
+    : expr exprListTail
+    ;
+
+exprListTail
+    : ',' expr exprListTail
+    |
+    ;
+
+argList
+    : NAME argListTail
+    ;
+
+argListTail
+    : NAME argListTail
+    | 
+    ;
+
+varDecl
+    : NAME '::' typeList
+    ;
+
+NAME: [a-z_][a-zA-Z0-9_]* ;
+TYPE: [A-Z][a-zA-Z0-9_]* ;
+INT : [0-9]+ ;
+WS  : [ \t\r\n]+ ;

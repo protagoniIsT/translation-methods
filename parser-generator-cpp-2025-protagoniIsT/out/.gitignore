@@ -1,0 +1,15 @@
+# Ignore generated sources.
+*.cc
+*.cpp
+*.cxx
+*.c++
+*.h
+*.hh
+*.hpp
+*.hxx
+*.h++
+*.cppm
+*.ixx
+
+# Ignore inputs and outputs.
+*.txt

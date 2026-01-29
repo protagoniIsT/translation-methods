@@ -1,0 +1,51 @@
+s
+    : FUN NAME LPAREN pListOpt RPAREN returnType END
+    ;
+
+pListOpt
+    : pList
+    |
+    ;
+
+pList
+    : p pListTail
+    ;
+
+pListTail
+    : COMMA p pListTail
+    |
+    ;
+
+p
+    : NAME COLON t
+    ;
+
+returnType
+    : COLON t
+    |
+    ;
+
+t
+    : NAME typeArgs
+    ;
+
+typeArgs
+    : ALPAREN t typeArgsTail ARPAREN
+    |
+    ;
+
+typeArgsTail
+    : COMMA t typeArgsTail
+    |
+    ;
+
+FUN    : 'fun' ;
+NAME   : [a-zA-Z_][a-zA-Z0-9_]* ;
+LPAREN : '(' ;
+RPAREN : ')' ;
+COMMA  : ',' ;
+COLON  : ':' ;
+ALPAREN     : '<' ;
+ARPAREN     : '>' ;
+END    : '$' ;
+WS     : [ \t\r\n]+ ;

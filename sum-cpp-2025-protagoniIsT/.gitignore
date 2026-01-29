@@ -1,0 +1,10 @@
+# Directories.
+build/
+
+# Files
+*.out
+*.exe
+*.obj
+
+# Built app.
+sum

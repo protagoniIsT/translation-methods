@@ -1,0 +1,15 @@
+name: CI/CD
+run-name: Recursive Parsing task testing (by @${{ github.actor }})
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  buildtest:
+    with:
+      student_repo: ${{ github.repository }}
+      student_task: recursive-parsing
+      student_user: ${{ github.actor }}
+    uses: itmo-parsing/tests-2025/.github/workflows/buildtest.yml@main
+    secrets: inherit

@@ -1,0 +1,19 @@
+CompileFlags:
+  Add:
+    - -std=c++20
+    - -Ilib/include
+    - -Ilib/generated/libitmoantlr
+    - -I/usr/local/include
+    - -I/usr/include
+    - -I/usr/lib/llvm-20/include
+    - -Wno-unused-parameter
+
+Index:
+  Background: Build
+
+Diagnostics:
+  ClangTidy:
+    FormatStyle: file
+
+Index:
+  Background: true

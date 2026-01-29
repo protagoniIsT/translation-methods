@@ -1,0 +1,67 @@
+@header {
+    #include <string>
+    #include <stdexcept>
+    #include <cmath>
+
+    int divide(int a, int b) {
+        if (b == 0) throw std::runtime_error("division by zero");
+        int res = a / b;
+        if (a % b != 0 && ((a < 0) != (b < 0))) res--;
+        return res;
+    }
+
+    int ilog(int base, int arg) {
+        if (base <= 1 || arg <= 0) throw std::runtime_error("invalid log arguments");
+        return (int)(std::log(arg) / std::log(base));
+    }
+}
+
+start returns { int val }
+    : e=expr END { val = e; }
+    ;
+
+expr returns { int val }
+    : t=term r=exprRest(t) { val = r; }
+    ;
+
+exprRest(int acc) returns { int val }
+    : PLUS t=term r=exprRest(acc + t) { val = r; }
+    | MINUS t=term r=exprRest(acc - t) { val = r; }
+    | { val = acc; }
+    ;
+
+term returns { int val }
+    : f=logExpr r=termRest(f) { val = r; }
+    ;
+
+termRest(int acc) returns { int val }
+    : STAR f=logExpr r=termRest(acc * f) { val = r; }
+    | SLASH f=logExpr r=termRest(divide(acc, f)) { val = r; }
+    | { val = acc; }
+    ;
+
+logExpr returns { int val }
+    : f=factor r=logRest(f) { val = r; }
+    ;
+
+logRest(int acc) returns { int val }
+    : LOG f=logExpr { val = ilog(f, acc); }
+    | { val = acc; }
+    ;
+
+factor returns { int val }
+    : n=INT { val = std::stoi(n.text); }
+    | MINUS f=factor { val = -f; }
+    | LPAREN e=expr RPAREN { val = e; }
+    ;
+
+PLUS   : '+';
+MINUS  : '-';
+STAR   : '*';
+LOG    : '//';
+SLASH  : '/';
+LPAREN : '(';
+RPAREN : ')';
+INT    : [0-9]+;
+END    : '$';
+WS     : [ \t\r\n]+ ;

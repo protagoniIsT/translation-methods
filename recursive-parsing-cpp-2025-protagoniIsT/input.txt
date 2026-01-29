@@ -1,0 +1,1 @@
+fun transform(data: Map<String, List<Int>>, flag: Boolean): Pair<Int, String>

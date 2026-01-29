@@ -1,0 +1,12 @@
+# Directories.
+build/
+
+# Files
+*.out
+*.exe
+*.obj
+*.dot
+*.png
+
+# Built app.
+recursive-parsing

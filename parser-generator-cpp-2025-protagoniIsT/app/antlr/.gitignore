@@ -1,0 +1,5 @@
+# Ignore generated parser/lexer/...
+*.cpp
+*.h
+*.interp
+*.tokens

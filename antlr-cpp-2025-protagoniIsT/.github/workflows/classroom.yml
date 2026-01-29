@@ -1,0 +1,15 @@
+name: CI/CD
+run-name: ANTLR task testing (by @${{ github.actor }})
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  buildtest:
+    with:
+      student_repo: ${{ github.repository }}
+      student_task: antlr
+      student_user: ${{ github.actor }}
+    uses: itmo-parsing/tests-2025/.github/workflows/buildtest.yml@main
+    secrets: inherit

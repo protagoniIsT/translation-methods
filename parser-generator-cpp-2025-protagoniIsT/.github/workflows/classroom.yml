@@ -1,0 +1,24 @@
+name: CI/CD
+run-name: Parser Generator task testing (by @${{ github.actor }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      antlr_used_lang:
+        description: 'The programming language used to implement laboratory work #3.'
+        required: true
+        default: 'cpp'
+        type: choice
+        options:
+          - cpp
+          - java
+          - kotlin
+
+jobs:
+  autograde:
+    with:
+      student_repo: ${{ github.repository }}
+      student_user: ${{ github.actor }}
+      student_lang: ${{ inputs.antlr_used_lang }}
+    uses: itmo-parsing/tests-2025/.github/workflows/parser-generator.yml@main
+    secrets: inherit
